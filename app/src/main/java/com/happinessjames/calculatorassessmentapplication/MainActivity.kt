@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         tvResult.text = mod.toString()
     }
     fun divide(input1: Double, input2: Double){
-        var mode = input1 / input2
-        tvResult.text = mode.toString()
+        var division = input1 / input2
+        tvResult.text = division.toString()
     }
 }
