@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CalculatorAssessmentApplication</string>
+    <string name="first_number">Enter the first number</string>
+    <string name="second_number">Enter a second number</string>
+    <string name="minus">-</string>
+    <string name="add">+</string>
+    <string name="divide">/</string>
+    <string name="modulus">%</string>
+</resources>
