@@ -21,7 +21,8 @@
             android:id="@+id/etInput1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/first_number" />
+            android:hint="@string/first_number"
+            android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +40,8 @@
             android:id="@+id/etInput2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/second_number" />
+            android:hint="@string/second_number"
+            android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

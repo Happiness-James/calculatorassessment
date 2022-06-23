@@ -6,138 +6,73 @@ import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.happinessjames.calculatorassessmentapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var tillInput1:TextInputLayout
-    lateinit var etInput1:TextInputEditText
-    lateinit var tilInput2:TextInputLayout
-    lateinit var etInput2:TextInputEditText
-    lateinit var btnAdd:Button
-    lateinit var btnSubtract:Button
-    lateinit var btnModulus:Button
-    lateinit var btnDivision:Button
-    lateinit var tvResult:TextView
+    lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        clickView()
-        clicklistner()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        clickviews()
     }
-    fun clickView(){
-        tillInput1=findViewById(R.id.tillInput1)
-        tilInput2=findViewById(R.id.tilInput2)
-        etInput1=findViewById(R.id.etInput1)
-        etInput2=findViewById(R.id.etInput2)
-        btnAdd=findViewById(R.id.btnAdd)
-        btnDivision=findViewById(R.id.btnDivision)
-        btnSubtract=findViewById(R.id.btnSubtract)
-        btnModulus=findViewById(R.id.btnModulus)
-        tvResult=findViewById(R.id.tvResult)
-    }
-
-    fun clicklistner(){
-        btnAdd.setOnClickListener {
-
-            var error=false
-            tillInput1.error=null
-            tilInput2.error=null
-            var input1=etInput1.text.toString()
-            if (input1.isBlank()){
-                tillInput1.error="Input is required"
-                error=true
-
-
-            }
-            var input2=etInput2.text.toString()
-            if(input2.isBlank()){
-                tilInput2.error="Input is required"
-                error=true
-            }
-            if (!error)
-            addition(input1.toDouble(),input2.toDouble())
+    fun clickviews(){
+        binding.btnAdd.setOnClickListener {
+           addition(obtainInputs())
         }
-
-
-        btnSubtract.setOnClickListener {
-
-            var error=false
-            tillInput1.error=null
-            tilInput2.error=null
-            var input1=etInput1.text.toString()
-            if (input1.isBlank()){
-                tillInput1.error="Input is required"
-                error=true
-
-
-            }
-            var input2=etInput2.text.toString()
-            if(input2.isBlank()){
-                tilInput2.error="Input is required"
-                error=true
-            }
-            if (!error)
-                subtraction(input1.toDouble(),input2.toDouble())
-
+        binding.btnSubtract.setOnClickListener {
+           subtraction(obtainInputs())
         }
-        btnModulus.setOnClickListener {
-
-            var error=false
-            tillInput1.error=null
-            tilInput2.error=null
-            var input1=etInput1.text.toString()
-            if (input1.isBlank()){
-                tillInput1.error="Input is required"
-                error=true
-
-
-            }
-            var input2=etInput2.text.toString()
-            if(input2.isBlank()){
-                tilInput2.error="Input is required"
-                error=true
-            }
-            if (!error)
-                modulus(input1.toDouble(),input2.toDouble())
-
+        binding.btnDivision.setOnClickListener {
+           divide(obtainInputs())
         }
-        btnDivision.setOnClickListener {
-
-            var error=false
-            tillInput1.error=null
-            tilInput2.error=null
-            var input1=etInput1.text.toString()
-            if (input1.isBlank()){
-                tillInput1.error="Input is required"
-                error=true
-
-
-            }
-            var input2=etInput2.text.toString()
-            if(input2.isBlank()){
-                tilInput2.error="Input is required"
-                error=true
-            }
-            if (!error)
-                divide(input1.toDouble(),input2.toDouble())
-
-
+        binding.btnModulus.setOnClickListener {
+           modulus(obtainInputs())
         }
     }
-    fun addition(input1:Double, input2: Double){
-        var addition = input1 + input2
-        tvResult.text = addition.toString()
 
+ data class Inputs(var input1:Double,var input2:Double)
+    fun obtainInputs():Inputs?{
+        binding.tillInput1.error = null
+        binding.tilInput2.error = null
+        var input1 = binding.etInput1.text.toString()
+        var input2 = binding.etInput2.text.toString()
+        var error = false
+        if (input1.isBlank()) {
+            binding.tillInput1.error = "Number 1 is required"
+            error = true
+        }
+        if (input2.isBlank()) {
+            binding.tilInput2.error = "Number 2 is required"
+            error = true
+        }
+        if (!error) {
+            return Inputs(input1.toDouble(), input2.toDouble())
+        }
+        return null
     }
-    fun subtraction(input1: Double, input2: Double){
-        var sub = input1 - input2
-        tvResult.text = sub.toString()
+
+    fun addition(inputs: Inputs?){
+        if (inputs!=null){
+            displayResult(inputs.input1 + inputs.input2)
+        }
     }
-    fun modulus(input1: Double, input2: Double){
-        var mod = input1 % input2
-        tvResult.text = mod.toString()
+    fun subtraction(inputs:Inputs?){
+        if (inputs!=null){
+            displayResult(inputs.input1 - inputs.input2)
+        }
     }
-    fun divide(input1: Double, input2: Double){
-        var division = input1 / input2
-        tvResult.text = division.toString()
+    fun modulus(inputs:Inputs?){
+        if (inputs!=null){
+            displayResult(inputs.input1 % inputs.input2)
+        }
+    }
+    fun divide(inputs:Inputs?){
+        if (inputs!=null){
+            displayResult(inputs.input1 / inputs.input2)
+        }
+    }
+    fun displayResult(result:Double){
+        binding.tvResult.text = result.toString()
     }
 }
